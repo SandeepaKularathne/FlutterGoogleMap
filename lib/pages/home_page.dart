@@ -17,9 +17,33 @@ class _HomePageState extends State<HomePage>{
   Completer<GoogleMapController> _controller = Completer();
 
   static CameraPosition _ousl = const CameraPosition(
-      target: LatLng(6.883274, 79.8852994),
+      target: LatLng(6.8830473, 79.8863484),
       zoom: 19,
   );
+
+  List<Marker> _marker = [];
+  List<Marker> _list = const [
+    Marker(
+      markerId: MarkerId('1'),
+      position: LatLng(6.8830473,79.8863484),
+      infoWindow: InfoWindow(
+        title: "My location",
+      )
+    ),
+    Marker(
+        markerId: MarkerId('2'),
+        position: LatLng(6.886181,79.8823644),
+        infoWindow: InfoWindow(
+          title: "OUSL Library",
+        )
+    )
+  ];
+
+  @override
+  void initState(){
+    super.initState();
+    _marker.addAll(_list);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +51,7 @@ class _HomePageState extends State<HomePage>{
     return Scaffold(
       body: GoogleMap(
         initialCameraPosition: _ousl,
+        markers: Set.of(_marker),
         mapType: MapType.normal,
         compassEnabled: false,
         myLocationButtonEnabled: true,
