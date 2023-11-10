@@ -1,6 +1,6 @@
 # maps
 
-A new Flutter project.
+A new Flutter project.setup google map and we will run the project both for iOS and android
 
 ## Getting Started
 
