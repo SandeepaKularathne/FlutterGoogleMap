@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage>{
     ),
     Marker(
         markerId: MarkerId('2'),
-        position: LatLng(6.886181,79.8823644),
+        position: LatLng(6.886280, 79.883068),
         infoWindow: InfoWindow(
           title: "OUSL Library",
         )
@@ -49,15 +49,34 @@ class _HomePageState extends State<HomePage>{
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: GoogleMap(
-        initialCameraPosition: _ousl,
-        markers: Set.of(_marker),
-        mapType: MapType.normal,
-        compassEnabled: false,
-        myLocationButtonEnabled: true,
-        myLocationEnabled: true,
-        onMapCreated: (GoogleMapController controller){
-          _controller.complete(controller);
+      body: SafeArea(
+        child: GoogleMap(
+          initialCameraPosition: _ousl,
+          markers: Set.of(_marker),
+          mapType: MapType.normal,
+          compassEnabled: false,
+          myLocationButtonEnabled: true,
+          myLocationEnabled: true,
+          onMapCreated: (GoogleMapController controller){
+            _controller.complete(controller);
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.location_disabled_outlined),
+        onPressed: () async {
+          GoogleMapController controller = await _controller.future;
+          controller.animateCamera(
+              CameraUpdate.newCameraPosition(
+                CameraPosition(
+                  target: LatLng(6.886280, 79.883068),
+                  zoom: 14,
+                )
+              )
+          );
+          setState(() {
+
+          });
         },
       ),
     );
